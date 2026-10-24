@@ -700,6 +700,7 @@ class LotteryAssignmentController(object):
 
         stats['num_registrations'] = numpy.sum(self.student_sections)
         stats['num_full_classes'] = numpy.sum(self.section_capacities == numpy.sum(self.student_sections, 0))
+        stats['num_empty_classes'] = numpy.sum(numpy.sum(self.student_sections, axis=0) == 0)
         stats['total_spaces'] = numpy.sum(self.section_capacities)
 
         #   Timeslot-based metrics
@@ -799,6 +800,7 @@ class LotteryAssignmentController(object):
             f'{stats["num_registrations"]:6d} total enrollments',
             f'{stats["num_sections"]:6d} available sections',
             f'{stats["num_full_classes"]:6d} sections were filled to capacity',
+            f'{stats["num_empty_classes"]:6d} sections had no students enrolled',
         ]))
 
         ratios = []
